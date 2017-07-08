@@ -135,7 +135,7 @@ print a.progress, a.data
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 9]
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-#####  查看进程状态
+#####  添加任务
 ```python
 import time
 from iprocess import IProcess
