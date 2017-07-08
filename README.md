@@ -56,6 +56,8 @@ import time
 from iprocess import IProcess
 
 class Increaser(IProcess):
+    '''Increaser 进程将列表中的数据均实现自加效果'''
+    
     def __init__(self, data, *args, **kwargs):
         super(Increaser, self).__init__(*args, **kwargs)
         self._data = data
@@ -95,6 +97,8 @@ print a.data
 ##### 查看计算进度
 ```python
 class Increaser(IProcess):
+    '''Increaser 进程将列表中的数据均实现自加效果'''
+    
     def __init__(self, data, *args, **kwargs):
         super(Increaser, self).__init__(*args, **kwargs)
         self._data = data
@@ -141,6 +145,8 @@ import time
 from iprocess import IProcess
 
 class Increaser(IProcess):
+    '''Increaser 进程将列表中的数据均实现自加效果'''
+    
     def __init__(self, data, *args, **kwargs):
         super(Increaser, self).__init__(*args, **kwargs)
         self._data = data
