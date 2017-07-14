@@ -68,7 +68,7 @@ class IProcess(multiprocessing.Process):
         if not self.pid or self.pid == os.getpid():
             states = self._states.copy()
             for k, v in states.items():
-                if v:
+                if v and v.get('time'):
                     states[k]['duration'] = (time.time() - v.pop('time')) * 1000
             return states
         if not self.is_alive():
