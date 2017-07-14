@@ -7,6 +7,7 @@ import Queue
 import logging
 import traceback
 import threading
+from copy import deepcopy
 from functools import wraps
 
 import multiprocess as multiprocessing
@@ -66,7 +67,7 @@ class IProcess(multiprocessing.Process):
     @property
     def interfaces(self):
         if not self.pid or self.pid == os.getpid():
-            states = self._states.copy()
+            states = deepcopy(self._states)
             for k, v in states.items():
                 if v and v.get('time'):
                     states[k]['duration'] = (time.time() - v.pop('time')) * 1000
