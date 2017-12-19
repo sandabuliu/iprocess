@@ -43,7 +43,7 @@ while Test:
 
 输出结果:
 
-	{'alive': True}
+    {'alive': True}
     {'alive': True}
     {'alive': True}
     {'alive': True}
@@ -88,7 +88,7 @@ print a.data
 
 输出结果：
 
-	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     [1, 2, 3, 3, 4, 5, 6, 7, 8, 9]
     [1, 2, 3, 4, 5, 6, 6, 7, 8, 9]
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 9]
@@ -96,22 +96,22 @@ print a.data
     
 ##### 查看计算进度
 ```python
+import time
+from iprocess import IProcess
+
 class Increaser(IProcess):
-    '''Increaser 进程将列表中的数据均实现自加效果'''
-    
+    """Increaser 进程将列表中的数据均实现自加效果"""
+
     def __init__(self, data, *args, **kwargs):
         super(Increaser, self).__init__(*args, **kwargs)
         self._data = data
-        self._index = 0
+        self.index = 0
 
     def run(self):
-        while True:
+        for i, item in enumerate(self._data):
             time.sleep(0.2)
-            if self._index < len(self._data):
-                self._data[self._index] += 1
-                self._index += 1
-            else:
-                break
+            self._data[i] += 1
+            self.index = i+1
 
     @IProcess.property
     def data(self):
@@ -119,7 +119,8 @@ class Increaser(IProcess):
 
     @IProcess.property
     def progress(self):
-        return 100.0*self._index/len(self._data)
+        return 100.0 * self.index / len(self._data)
+
 
 a = Increaser(range(10))
 a.start()
@@ -133,33 +134,31 @@ print a.progress, a.data
 
 输出结果：
 
-	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    [1, 2, 3, 3, 4, 5, 6, 7, 8, 9]
-    [1, 2, 3, 4, 5, 6, 6, 7, 8, 9]
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 9]
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    0.0 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    30.0 [1, 2, 3, 3, 4, 5, 6, 7, 8, 9]
+    60.0 [1, 2, 3, 4, 5, 6, 6, 7, 8, 9]
+    90.0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 9]
+    100.0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 #####  添加任务
 ```python
 import time
 from iprocess import IProcess
 
+
 class Increaser(IProcess):
-    '''Increaser 进程将列表中的数据均实现自加效果'''
-    
+    """Increaser 进程将列表中的数据均实现自加效果"""
+
     def __init__(self, data, *args, **kwargs):
         super(Increaser, self).__init__(*args, **kwargs)
         self._data = data
-        self._index = 0
+        self.index = 0
 
     def run(self):
-        while True:
-            if self._index < len(self._data):
-                self._data[self._index] += 1
-                self._index += 1
-            else:
-                break
+        for i, item in enumerate(self._data):
             time.sleep(0.2)
+            self._data[i] += 1
+            self.index = i+1
 
     @IProcess.property
     def data(self):
@@ -167,11 +166,12 @@ class Increaser(IProcess):
 
     @IProcess.property
     def progress(self):
-        return 100.0*self._index/len(self._data)
+        return 100.0 * self.index / len(self._data)
 
     @IProcess.child
     def append(self, x):
         self._data.append(x)
+
 
 a = Increaser(range(10))
 a.start()
