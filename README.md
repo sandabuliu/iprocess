@@ -55,35 +55,24 @@ while Test:
 import time
 from iprocess import IProcess
 
+
 class Increaser(IProcess):
-    '''Increaser 进程将列表中的数据均实现自加效果'''
-    
+    """Increaser 进程将列表中的数据均实现自加效果"""
+
     def __init__(self, data, *args, **kwargs):
         super(Increaser, self).__init__(*args, **kwargs)
         self._data = data
-        self._index = 0
+        self.index = 0
 
     def run(self):
-        while True:
+        for i, item in enumerate(self._data):
             time.sleep(0.2)
-            if self._index < len(self._data):
-                self._data[self._index] += 1
-                self._index += 1
-            else:
-                break
+            self._data[i] += 1
+            self.index = i+1
 
     @IProcess.property
     def data(self):
         return self._data
-        
-a = Increaser(range(10))
-a.start()
-
-while a.is_alive():
-    print a.data
-    time.sleep(0.6)
-
-print a.data
 ```
 
 输出结果：
